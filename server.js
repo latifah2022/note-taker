@@ -13,7 +13,7 @@ app.get("./" , function(req, res) {
     res.sendFile(path.join(__dirname, "publiic/index.html"))
 })
 
-app.get("/add" , function(req, res) {
+app.get("/note" , function(req, res) {
     res.sendFile(path.join(__dirname, "publiic/notes.html"))
 })
 
