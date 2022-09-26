@@ -21,10 +21,11 @@ router.get("/:note", async (req,res) => {
         if(err){
             res.json(err);
         }else{
-            const chosen = req.params.notes;
+            const chosen = req.params.note;
+            console.log(chosen);
             const notes = JSON.parse(data)
             for (var i = 0; i < notes.length; i++) {
-                if (chosen === notes[i].routeName) {
+                if (chosen === notes[i].note_id) {
                     return res.json(notes[i]);
                 }
             }
@@ -32,15 +33,13 @@ router.get("/:note", async (req,res) => {
         }
     })
 })
-
 router.post("/", async (req, res) => {
 
-    fs.readFile("./db/db.json", "ust8",(err, data) => {
+    fs.readFile("./db/db.json", "utf8",(err, data) => {
         if(err){
             res.json(err);
         } else {
-            const newnotes = res.body;
-            newnotes.routeName = newnotes.name.replace(/\s+/g, "").toLowerCase();
+            const newnotes = req.body;
 
             const notes = JSON.parse(data)
             notes.push(newnotes);
@@ -55,3 +54,5 @@ router.post("/", async (req, res) => {
         }
     })
 })
+
+module.exports = router;
