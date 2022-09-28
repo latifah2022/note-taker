@@ -61,13 +61,11 @@ notes.delete("/:note_id", (req, res) => {
     .then((data) => JSON.parse(data))
 	.then((json) => {
         console.log(json);
+
 		const result = json.filter((note) => note.note_id !== noteId);
-        writeToFile("./db/db.json", result);
+        writeToFile("./db/db.json", JSON.stringify(result));
         res.json(`Item ${noteId} Deleted :wastebasket:`);
 	});
 });
-
-
-
 
 module.exports = router;
