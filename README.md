@@ -17,6 +17,7 @@ CSS
 Express.js
 npm 
 inquirer package
+APIs
 
 ## Descripton
 
@@ -29,12 +30,12 @@ And will save them up for when tou are ready to finish them.
 
 [GitHub](https://github.com/latifah2022/note-taker)
 
-[Video](  )
+[Heroku](  )
 
+## Mock Up
 
-
-## Mock-Up
-
+![Image](Assets/11-express-homework-demo-01.png)
+![Image](Assets/11-express-homework-demo-02.png)
 
 ## Lisence
 
