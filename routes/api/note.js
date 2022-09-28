@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const {v4: uuid} = require('uuid');
 
 const fs = require("fs");
 //const { resourceLimits } = require("worker_threads");
@@ -40,7 +41,7 @@ router.post("/", async (req, res) => {
             res.json(err);
         } else {
             const newnotes = req.body;
-
+            newnotes.id = uuid()
             const notes = JSON.parse(data)
             notes.push(newnotes);
 
@@ -55,16 +56,23 @@ router.post("/", async (req, res) => {
     })
 })
 
-notes.delete("/:note_id", (req, res) => {
-    const noteId = req.params.note_id;
-    readFromFile("./db/db.json")
-    .then((data) => JSON.parse(data))
-	.then((json) => {
+router.delete("/:id", (req, res) => {
+    const noteId = req.params.id;
+    fs.readFile("./db/db.json", "utf8",(err, json) => {
+        if(err){
+            res.json(err);
+        } else {
         console.log(json);
-
-		const result = json.filter((note) => note.note_id !== noteId);
-        writeToFile("./db/db.json", JSON.stringify(result));
-        res.json(`Item ${noteId} Deleted :wastebasket:`);
+        json = JSON.parse(json)
+		const result = json.filter((note) => note.id !== noteId);
+        fs.writeFile("./db/db.json", JSON.stringify(result, null, "\t"), (err) => {
+            if(err){
+                res.json(err)
+            } else{
+                res.json(`Item ${noteId} Deleted :wastebasket:`);
+            }
+        })
+        }
 	});
 });
 
